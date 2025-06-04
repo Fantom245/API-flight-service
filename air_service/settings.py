@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "flight_order",
     "crew",
     "transport",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
