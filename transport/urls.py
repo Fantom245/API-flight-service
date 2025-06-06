@@ -1,11 +1,17 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
-from .views import AirplaneViewSet, AirplaneTypeViewSet
+from .views import (
+    AirplaneViewSet,
+    AirplaneTypeViewSet
+)
 
+router = DefaultRouter()
+router.register("airplane", AirplaneViewSet, basename="airplane")
+router.register("airplane-type", AirplaneTypeViewSet, basename="airplane-detail")
 
 urlpatterns = [
-    path("airplane/", AirplaneViewSet.as_view({"get": "list", "post": "create"}), name="airplane-list"),
-    path("airplane-type/", AirplaneTypeViewSet.as_view({"get": "list", "post": "create"}), name="airplane-type-list")
+    path("", include(router.urls)),
 ]   
 
 app_name = "transport"
