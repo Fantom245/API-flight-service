@@ -1,3 +1,10 @@
 from django.shortcuts import render
+from rest_framework import viewsets
 
-# Create your views here.
+from .models import Crew
+from .serializers import CrewRegisterSerializer
+
+
+class CrewRegisterViewSet(viewsets.ModelViewSet):
+    queryset = Crew.objects.all()
+    serializer_class = CrewRegisterSerializer
