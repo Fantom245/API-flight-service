@@ -14,7 +14,8 @@ class AirplaneSerializer(serializers.ModelSerializer):
         slug_field = "name",
         queryset = AirplaneType.objects.all()
     )
+    number_of_seats = serializers.ReadOnlyField()
     
     class Meta:
         model = Airplane
-        fields = ["id", "name", "rows", "seats_in_row", "airplane_type"]
+        fields = ["id", "name", "rows", "seats_in_row", "number_of_seats", "airplane_type"]
