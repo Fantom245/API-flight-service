@@ -9,13 +9,16 @@ class AirplaneTypeSerializer(serializers.ModelSerializer):
         fields = ["id", "name"]
 
 
-class AirplaneSerializer(serializers.ModelSerializer):
-    airplane_type = serializers.SlugRelatedField(
-        slug_field = "name",
-        queryset = AirplaneType.objects.all()
-    )
+class AirplaneListSerializer(serializers.ModelSerializer):
     number_of_seats = serializers.ReadOnlyField()
     
     class Meta:
         model = Airplane
         fields = ["id", "name", "rows", "seats_in_row", "number_of_seats", "airplane_type"]
+
+
+class AirplaneDetailSerializer(AirplaneListSerializer):
+    airplane_type = serializers.SlugRelatedField(
+        slug_field = "name",
+        queryset = AirplaneType.objects.all()
+    )

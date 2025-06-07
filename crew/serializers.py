@@ -7,4 +7,3 @@ class CrewRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Crew
         fields = ["id", "first_name", "last_name", "email", "password"]
-
