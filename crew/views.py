@@ -1,10 +1,7 @@
-from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import generics
 
-from .models import Crew
-from .serializers import CrewRegisterSerializer
+from .serializers import CrewSerializer
 
 
-class CrewRegisterViewSet(viewsets.ModelViewSet):
-    queryset = Crew.objects.all()
-    serializer_class = CrewRegisterSerializer
+class CreateCrewViewSet(generics.CreateAPIView):
+    serializer_class = CrewSerializer

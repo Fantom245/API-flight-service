@@ -1,10 +1,10 @@
 from django.urls import path
 
-from .views import CrewRegisterViewSet
+from .views import CreateCrewViewSet
 
 
 urlpatterns = [
-    path("registration/", CrewRegisterViewSet.as_view({"post": "create"}), name="registration")
+    path("register/", CreateCrewViewSet.as_view(), name="create")
 ]
 
 app_name = "crew"
