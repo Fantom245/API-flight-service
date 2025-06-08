@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "crew",
     "transport",
     "rest_framework",
+    "rest_framework.authtoken",
 ]
 
 MIDDLEWARE = [
