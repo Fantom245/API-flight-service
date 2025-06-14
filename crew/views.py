@@ -10,6 +10,6 @@ class CreateCrewViewSet(generics.CreateAPIView):
     serializer_class = CrewSerializer
 
 
-class CreateTokenView(ObtainAuthToken):
+class LoginCrewView(ObtainAuthToken):
     serializer_class = EmailAuthTokenSerializer
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
