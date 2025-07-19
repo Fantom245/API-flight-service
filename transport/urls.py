@@ -8,7 +8,7 @@ from .views import (
 
 router = DefaultRouter()
 router.register("airplane", AirplaneViewSet, basename="airplane")
-router.register("airplane-type", AirplaneTypeViewSet, basename="airplane-detail")
+router.register("airplane-type", AirplaneTypeViewSet, basename="airplane-type")
 
 urlpatterns = [
     path("", include(router.urls)),
