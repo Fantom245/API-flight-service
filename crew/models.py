@@ -35,20 +35,22 @@ class UserManager(BaseUserManager):
 
 
 class Crew(AbstractUser):
-    username = None
+    username = models.CharField(max_length=255, blank=True, null=True, unique=True)
     email = models.EmailField(_("email address"), unique=True)
+
+    @property
+    def full_name(self):
+        if self.first_name and self.last_name:
+            return self.get_full_name()
+        return "Name not defined."
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     objects = UserManager()
 
-    @property
-    def full_name(self):
-        return self.first_name + " " + self.last_name
-
     class Meta:
-        ordering = ["last_name", "first_name"]
+        ordering = ["username", "email",]
 
     def __str__(self):
-        return self.full_name
+        return f"Username: {self.username}. Full_name: {self.full_name}. Email: {self.email}"
