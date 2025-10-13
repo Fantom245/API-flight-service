@@ -11,6 +11,8 @@ class AirplaneType(models.Model):
             "unique": _("An airplane type with that name already exists."),
         },
     )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ["name",]
@@ -32,6 +34,7 @@ class Airplane(models.Model):
     rows = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     seats_in_row = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     airplane_type = models.ForeignKey(AirplaneType, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     @property
     def number_of_seats(self):
