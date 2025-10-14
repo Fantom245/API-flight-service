@@ -5,13 +5,23 @@ from .models import Airplane, AirplaneType
 
 @admin.register(AirplaneType)
 class AirplaneTypeAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "created_at", "updated_at")
+    list_display = ("id", "name", "manufacturer", "max_range_km", "max_speed_kmh", "created_at", "updated_at")
     list_display_links = ("id", "name")
-    list_filter = ("created_at", "updated_at")
-    search_fields = ("name",)
+    list_filter = ("max_range_km", "created_at",) # сделать кастомный RangeFilter
+    list_per_page = 25
+    search_fields = ("name", "manufacturer")
     readonly_fields = ("id", "created_at", "updated_at")
-    ordering = ("name",)
+    ordering = ("-created_at", "name",)
     date_hierarchy = "created_at"
+
+    fieldsets = (
+        (None, {
+            "fields": ("name", "manufacturer")
+        }),
+        ("Characteristics", {
+            "fields": ("max_range_km", "max_speed_kmh")
+        })
+    )
 
 
 @admin.register(Airplane)
