@@ -4,18 +4,24 @@ from django.utils.translation import gettext_lazy as _
 
 
 class AirplaneType(models.Model):
-    name = models.CharField(
-        max_length=255,
-        unique=True,
-        error_messages={
-            "unique": _("An airplane type with that name already exists."),
-        },
+    name = models.CharField(max_length=255, unique=True)
+    manufacturer = models.CharField(max_length=255, blank=True)
+    max_range_km = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(1)]
+    )
+    max_speed_kmh = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(1)],
+        help_text=_("Maximum cruise speed in kilometers per hour (km/h).")
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["name",]
+        ordering = ["-created_at", "name"]
         verbose_name = _("Airplane Type")
         verbose_name_plural = _("Airplane Types")
 
@@ -24,13 +30,7 @@ class AirplaneType(models.Model):
 
 
 class Airplane(models.Model):
-    name = models.CharField(
-        max_length=255,
-        unique=True, 
-        error_messages={
-            "unique": _("An airplane with that name already exists."),
-        },
-    )
+    name = models.CharField(max_length=255, unique=True)
     rows = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     seats_in_row = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     airplane_type = models.ForeignKey(AirplaneType, on_delete=models.CASCADE)
