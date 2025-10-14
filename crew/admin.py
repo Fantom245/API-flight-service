@@ -1,10 +1,16 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+
 from .models import Crew
+from .forms import CrewCreationForm
 
 
 @admin.register(Crew)
-class CrewAdmin(admin.ModelAdmin):
-    list_display = ("id", "username", "first_name", "last_name", "email", "date_joined", "is_staff")
+class CrewAdmin(UserAdmin):
+    add_form = CrewCreationForm
+    model = Crew
+
+    list_display = ("id", "username", "email", "first_name", "last_name", "birthday", "phone", "date_joined", "is_staff")
     list_display_links = ("id", "username", "email")
     list_filter = ("is_staff", "date_joined")
     search_fields = ("username", "first_name", "last_name")
@@ -15,12 +21,30 @@ class CrewAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            "fields": ("username", "email") # разобраться с тем как хэшировать пароль и вводить его
+            "fields": ("email", "password")
         }),
         ("Personal information", {
-            "fields": ("first_name", "last_name"),
+            "fields": ("username", "first_name", "last_name", "birthday", "phone"),
         }),
         ("Flags", {
-            "fields": ("is_staff", "is_active")
+            "fields": ("is_staff", "is_active", "groups", "user_permissions")
+        }),
+    )
+
+    add_fieldsets = (
+        (None, {
+            "classes": ("wide",),
+            "fields": (
+                "email",
+                "username",
+                "phone",
+                "birthday",
+                "password1",
+                "password2",
+                "is_staff",
+                "is_active",
+                "groups",
+                "user_permissions"
+            ),
         }),
     )
