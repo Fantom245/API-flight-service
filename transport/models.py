@@ -30,17 +30,31 @@ class AirplaneType(models.Model):
 
 
 class Airplane(models.Model):
+    class Status(models.TextChoices):
+        ACTIVE = "active", _("Active")
+        MAINTENANCE = "maintenance", _("Maintenance")
+        RETIRED = "retired", _("Retired")
+
     name = models.CharField(max_length=255, unique=True)
     rows = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     seats_in_row = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     airplane_type = models.ForeignKey(AirplaneType, on_delete=models.CASCADE)
+    status = models.CharField(
+        max_length=12,
+        choices=Status.choices,
+        default=Status.ACTIVE
+    )
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     @property
     def number_of_seats(self):
         return self.seats_in_row * self.rows
     
     class Meta:
+        indexes = [
+            models.Index(fields=["airplane_type"]),
+        ]
         ordering = ["name",]
         verbose_name = _("Airplane")
         verbose_name_plural = _("Airplanes")

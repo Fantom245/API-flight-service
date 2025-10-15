@@ -26,11 +26,21 @@ class AirplaneTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Airplane)
 class AirplaneAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "rows", "seats_in_row", "number_of_seats", "airplane_type", "created_at")
+    list_display = ("id", "name", "rows", "seats_in_row", "number_of_seats", "status", "airplane_type", "created_at", "updated_at")
     list_display_links = ("id", "name")
     list_filter = ("created_at",)
-    search_fields = ("name",)
-    readonly_fields = ("id", "rows", "seats_in_row", "number_of_seats", "airplane_type", "created_at")
-    ordering = ("name", "created_at")
+    list_per_page = 25
+    search_fields = ("name", "status", "airplane_type")
+    readonly_fields = ("id", "created_at", "updated_at")
+    ordering = ("-created_at", "name")
     date_hierarchy = "created_at"
+
+    fieldsets = (
+        (None, {
+            "fields": ("name", "airplane_type")
+        }),
+        ("Characteristics", {
+            "fields": ("rows", "seats_in_row", "status")
+        })
+    )
 
