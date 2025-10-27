@@ -10,7 +10,7 @@ class CrewAdmin(UserAdmin):
     add_form = CrewCreationForm
     model = Crew
 
-    list_display = ("id", "username", "email", "first_name", "last_name", "birthday", "phone", "date_joined", "is_staff")
+    list_display = ("id", "username", "email", "first_name", "last_name", "birthday", "phone", "date_joined", "is_staff", "password")
     list_display_links = ("id", "username", "email")
     list_filter = ("is_staff", "date_joined")
     search_fields = ("username", "first_name", "last_name")
