@@ -11,3 +11,8 @@ __pycache__/
 
 */migrations/__pycache__/
 *.log
+
+crew/migrations/
+flight_order/migrations/
+transport/migrations/
+db.sqlite3
